@@ -15,111 +15,128 @@ import Footer from "@/components/Footer";
 
 export default function Index() {
   useEffect(() => {
-    // Scroll progress bar
+    // === SCROLL PROGRESS BAR ===
     const bar = document.createElement("div");
     bar.id = "scroll-progress";
     document.body.appendChild(bar);
     const onScroll = () => {
       const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-      bar.style.width = pct + "%";
+      bar.style.width = Math.min(pct, 100) + "%";
     };
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
 
-    // Cursor glow
+    // === CURSOR GLOW ===
     const glow = document.createElement("div");
     glow.style.cssText =
-      "position:fixed;width:400px;height:400px;pointer-events:none;z-index:1;border-radius:50%;background:radial-gradient(circle,rgba(123,47,190,0.07) 0%,transparent 70%);transform:translate(-50%,-50%);transition:left 0.06s,top 0.06s;";
+      "position:fixed;width:500px;height:500px;pointer-events:none;z-index:0;border-radius:50%;background:radial-gradient(circle,rgba(100,80,220,0.06) 0%,transparent 70%);transform:translate(-50%,-50%);transition:left 0.08s,top 0.08s;will-change:left,top;";
     document.body.appendChild(glow);
     const onMove = (e: MouseEvent) => {
       glow.style.left = e.clientX + "px";
       glow.style.top = e.clientY + "px";
     };
-    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mousemove", onMove, { passive: true });
 
-    // Scroll reveal
-    const observer = new IntersectionObserver(
+    // === SCROLL REVEAL ===
+    const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            (entry.target as HTMLElement).style.opacity = "1";
-            (entry.target as HTMLElement).style.transform = "translateY(0)";
+            (entry.target as HTMLElement).classList.add("visible");
+            revealObserver.unobserve(entry.target); // Once visible, unobserve for performance
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
     );
 
+    // Apply staggered delays to sibling reveals
     document.querySelectorAll(".reveal").forEach((el, i) => {
       const htmlEl = el as HTMLElement;
-      htmlEl.style.opacity = "0";
-      htmlEl.style.transform = "translateY(32px)";
-      htmlEl.style.transition = `opacity 0.6s ease ${i * 0.08}s, transform 0.6s ease ${i * 0.08}s`;
-      observer.observe(el);
+      // Check if this is inside a grid for stagger
+      const parent = htmlEl.parentElement;
+      if (parent) {
+        const siblings = Array.from(parent.querySelectorAll(".reveal"));
+        const sibIdx = siblings.indexOf(htmlEl);
+        if (sibIdx > 0 && !htmlEl.style.transitionDelay) {
+          htmlEl.style.transitionDelay = `${sibIdx * 80}ms`;
+        }
+      }
+      revealObserver.observe(el);
     });
 
-    // Card inner glow
-    document.querySelectorAll(".bento-card, .feature-card, .use-case-card").forEach((card) => {
+    // === CARD INNER GLOW ===
+    const cards = document.querySelectorAll(".feat-card, .card-glass");
+    const cardHandlers: Array<{ el: HTMLElement; move: (e: MouseEvent) => void; leave: () => void }> = [];
+
+    cards.forEach((card) => {
       const el = card as HTMLElement;
-      el.addEventListener("mousemove", (e: MouseEvent) => {
+      const originalBg = el.style.background;
+
+      const move = (e: MouseEvent) => {
         const rect = el.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
-        el.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(123,47,190,0.18) 0%, hsl(268 40% 11%) 65%)`;
-      });
-      el.addEventListener("mouseleave", () => {
-        el.style.background = "hsl(268 40% 11%)";
-      });
+        el.style.backgroundImage = `radial-gradient(circle at ${x}% ${y}%, rgba(100,120,255,0.06) 0%, transparent 65%)`;
+      };
+
+      const leave = () => {
+        el.style.backgroundImage = "";
+      };
+
+      el.addEventListener("mousemove", move);
+      el.addEventListener("mouseleave", leave);
+      cardHandlers.push({ el, move, leave });
     });
 
-    // Magnetic CTA buttons
-    document.querySelectorAll(".btn-magnetic").forEach((btn) => {
-      const el = btn as HTMLElement;
-      el.addEventListener("mousemove", (e: MouseEvent) => {
-        const r = el.getBoundingClientRect();
-        const dx = e.clientX - (r.left + r.width / 2);
-        const dy = e.clientY - (r.top + r.height / 2);
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 80) {
-          el.style.transform = `translate(${dx * 0.22}px,${dy * 0.22}px) scale(1.04)`;
-        }
-      });
-      el.addEventListener("mouseleave", () => {
-        el.style.transform = "";
-      });
-    });
+    // === SMOOTH ANCHOR CLICKS ===
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest("a[href^='#']") as HTMLAnchorElement;
+      if (anchor) {
+        e.preventDefault();
+        const id = anchor.getAttribute("href")?.slice(1);
+        if (id) document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+    document.addEventListener("click", handleAnchorClick);
 
     return () => {
       document.removeEventListener("mousemove", onMove);
       window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("click", handleAnchorClick);
       glow.remove();
       bar.remove();
-      observer.disconnect();
+      revealObserver.disconnect();
+      cardHandlers.forEach(({ el, move, leave }) => {
+        el.removeEventListener("mousemove", move);
+        el.removeEventListener("mouseleave", leave);
+      });
     };
   }, []);
 
   return (
-    <div className="animate-fade-in">
+    <div style={{ overflowX: "hidden" }}>
       <Navbar />
       <HeroSection />
-      <WaveDivider nextBg="#07050E" />
+      <WaveDivider />
       <ProblemSection />
-      <WaveDivider nextBg="#0E0919" />
+      <WaveDivider />
       <SolutionSection />
-      <WaveDivider nextBg="#09070F" />
+      <WaveDivider />
       <BentoSection />
-      <WaveDivider nextBg="#0E0919" />
+      <WaveDivider />
       <TabbedFeatures />
-      <WaveDivider nextBg="#09070F" />
+      <WaveDivider />
       <WhyOmniXSection />
-      <WaveDivider nextBg="#0E0919" />
+      <WaveDivider />
       <UseCasesSection />
-      <WaveDivider nextBg="#09070F" />
+      <WaveDivider />
       <TechStackSection />
-      <WaveDivider nextBg="#0E0919" />
+      <WaveDivider />
       <TestimonialsSection />
-      <WaveDivider nextBg="hsl(265 38% 5%)" />
+      <WaveDivider />
       <CTASection />
-      <WaveDivider nextBg="#07050E" />
+      <WaveDivider />
       <Footer />
     </div>
   );
