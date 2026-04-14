@@ -1,224 +1,300 @@
 import { useEffect, useRef, useState } from "react";
 
-const ArrowRight = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-);
-const PlayIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21" /></svg>
-);
-
-const subheadlines = [
-  "OmniX unifies your tasks, KPIs, files & team into one beautifully powerful platform.",
-  "Built for teams that move fast and need everything in sync.",
-  "From your first task to your biggest goal — all in one place.",
-];
-
-const stats = [
-  { value: "3-4×", label: "Fewer Tools", color: "#E11D7A" },
-  { value: "100%", label: "Remote-Ready", color: "hsl(271 91% 65%)" },
-  { value: "Real-Time", label: "KPI Sync", color: "hsl(271 91% 65%)" },
-  { value: "1 Platform", label: "All Teams", color: "hsl(271 91% 65%)" },
-];
+const words = ["Work Chaos.", "Tool Sprawl.", "Missed KPIs.", "Silos & Gaps."];
 
 export default function HeroSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
   const [typedText, setTypedText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
   const [subIndex, setSubIndex] = useState(0);
   const [subVisible, setSubVisible] = useState(true);
-  const fullText = "Work Chaos.";
+  const [count, setCount] = useState(0);
 
-  // Typewriter effect
+  const sublines = [
+    "OmniX unifies tasks, KPIs, files & team into one powerful platform.",
+    "Built for teams that move fast and need everything in sync.",
+    "From your first task to your biggest milestone — all in one place.",
+  ];
+
+  const stats = [
+    { val: "3–4×", label: "Fewer Tools", color: "hsl(38,95%,60%)" },
+    { val: "100%", label: "Remote-Ready", color: "hsl(183,100%,56%)" },
+    { val: "Real-Time", label: "KPI Sync", color: "hsl(246,90%,68%)" },
+    { val: "1 Platform", label: "All Teams", color: "hsl(183,100%,56%)" },
+  ];
+
+  // Typewriter + delete loop
   useEffect(() => {
-    if (typedText.length < fullText.length) {
-      const t = setTimeout(() => setTypedText(fullText.slice(0, typedText.length + 1)), 60);
-      return () => clearTimeout(t);
-    } else {
-      const t = setTimeout(() => setShowCursor(false), 2000);
-      return () => clearTimeout(t);
+    const current = words[wordIndex];
+    let timeout: ReturnType<typeof setTimeout>;
+    if (!deleting && typedText.length < current.length) {
+      timeout = setTimeout(() => setTypedText(current.slice(0, typedText.length + 1)), 70);
+    } else if (!deleting && typedText.length === current.length) {
+      timeout = setTimeout(() => setDeleting(true), 1800);
+    } else if (deleting && typedText.length > 0) {
+      timeout = setTimeout(() => setTypedText(typedText.slice(0, -1)), 45);
+    } else if (deleting && typedText.length === 0) {
+      setDeleting(false);
+      setWordIndex((p) => (p + 1) % words.length);
     }
-  }, [typedText]);
+    return () => clearTimeout(timeout);
+  }, [typedText, deleting, wordIndex]);
 
-  // Subheadline cycling
+  // Subline rotation
   useEffect(() => {
-    const interval = setInterval(() => {
+    const iv = setInterval(() => {
       setSubVisible(false);
       setTimeout(() => {
-        setSubIndex((p) => (p + 1) % subheadlines.length);
+        setSubIndex((p) => (p + 1) % sublines.length);
         setSubVisible(true);
-      }, 400);
-    }, 3000);
-    return () => clearInterval(interval);
+      }, 350);
+    }, 3200);
+    return () => clearInterval(iv);
   }, []);
 
-  // Count-up observer
+  // Count-up
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.2 });
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.1 });
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center section-deep overflow-hidden pt-16">
-      {/* Aurora */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 120% 60% at 50% 0%, rgba(123,47,190,0.18) 0%, transparent 70%)" }} />
+    <section className="relative min-h-screen flex items-center section-void overflow-hidden pt-16">
+      {/* Grid */}
+      <div className="grid-overlay opacity-60" />
 
-      <div className="container mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center gap-12 lg:gap-8 relative z-10">
-        {/* Left */}
-        <div className="flex-1 lg:max-w-[55%] space-y-8">
-          <div className="pill-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2z" fill="#A855F7" /></svg>
-            Now in Beta — Limited Access
+      {/* Glow orbs */}
+      <div className="glow-orb" style={{ width: 600, height: 600, top: "-10%", left: "-5%", background: "hsla(246,72%,48%,0.12)" }} />
+      <div className="glow-orb" style={{ width: 400, height: 400, top: "30%", right: "-10%", background: "hsla(183,100%,56%,0.08)" }} />
+
+      {/* Horizontal line accents */}
+      <div className="absolute top-1/3 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(139,160,255,0.06), transparent)" }} />
+
+      <div className="container mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center gap-16 relative z-10 py-12">
+        {/* LEFT */}
+        <div className="flex-1 lg:max-w-[54%] space-y-8">
+
+          {/* Badge */}
+          <div className="pill-badge w-fit">
+            <span className="dot" />
+            Beta — Limited Access Open
           </div>
 
-          <h1 className="font-heading font-bold text-[36px] sm:text-[44px] md:text-[56px] lg:text-[72px] leading-[1.05]">
-            Stop Managing<br />
-            <span className="gradient-text">{typedText}</span>
-            {showCursor && <span className="typewriter-cursor" />}
-          </h1>
+          {/* Headline */}
+          <div>
+            <p
+              className="mono text-xs mb-3 tracking-widest"
+              style={{ color: "hsl(var(--text-ghost))", letterSpacing: "0.15em" }}
+            >
+              01 / STOP MANAGING
+            </p>
+            <h1 className="font-heading font-800" style={{ fontSize: "clamp(44px,7vw,84px)", lineHeight: 1.0, letterSpacing: "-0.04em" }}>
+              <span style={{ color: "hsl(var(--text-primary))" }}>Stop Managing</span>
+              <br />
+              <span className="gradient-text">{typedText}</span>
+              <span className="typewriter-cursor" />
+            </h1>
+          </div>
 
+          {/* Subline */}
           <p
-            className="text-lg md:text-[22px] leading-relaxed max-w-xl transition-all duration-400"
+            className="text-lg leading-relaxed max-w-lg"
             style={{
-              color: "hsl(258 88% 85%)",
+              color: "hsl(var(--text-secondary))",
               opacity: subVisible ? 1 : 0,
-              transform: subVisible ? "translateY(0)" : "translateY(12px)",
-              transition: "opacity 0.4s ease, transform 0.4s ease",
+              transform: subVisible ? "translateY(0)" : "translateY(8px)",
+              transition: "opacity 0.35s ease, transform 0.35s ease",
             }}
           >
-            {subheadlines[subIndex]}
+            {sublines[subIndex]}
           </p>
 
-          <div className="flex flex-wrap gap-4">
-            <button className="btn-gradient btn-magnetic px-8 py-3.5 text-base font-body flex items-center gap-2">
-              Get Early Access <ArrowRight />
+          {/* CTAs */}
+          <div className="flex flex-wrap gap-3">
+            <button className="btn-gradient btn-magnetic flex items-center gap-2">
+              Get Early Access
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
-            <button className="btn-ghost px-6 py-3.5 text-base font-body flex items-center gap-2" style={{ borderColor: "rgba(139,92,246,0.45)" }}>
-              <PlayIcon /> Watch Demo
+            <button className="btn-ghost flex items-center gap-2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+              Watch Demo
             </button>
           </div>
 
-          <div ref={ref} className="flex items-center gap-0 flex-wrap">
-            {stats.map((s, i) => (
-              <div key={i} className="flex items-center">
-                <div className="text-center px-4 py-2">
-                  <div className="font-heading font-bold text-xl md:text-2xl" style={{ color: s.color }}>
-                    {visible ? s.value : "0"}
+          {/* Stats */}
+          <div ref={ref} className="pt-2">
+            <div
+              className="grid grid-cols-2 sm:grid-cols-4 gap-px rounded-xl overflow-hidden"
+              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
+            >
+              {stats.map((s, i) => (
+                <div key={i} className="py-4 px-4 text-center" style={{ background: "hsl(var(--bg-surface))" }}>
+                  <div className="font-heading font-700 text-xl" style={{ color: s.color }}>
+                    {visible ? s.val : "—"}
                   </div>
-                  <div className="text-xs mt-1" style={{ color: "hsl(260 23% 55%)" }}>{s.label}</div>
+                  <div className="text-xs mt-1" style={{ color: "hsl(var(--text-ghost))", fontFamily: "'DM Mono', monospace", letterSpacing: "0.04em" }}>
+                    {s.label}
+                  </div>
                 </div>
-                {i < stats.length - 1 && <span style={{ color: "hsl(260 25% 33%)" }}>|</span>}
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          {/* Social proof */}
+          <div className="flex items-center gap-3 pt-1">
+            <div className="flex -space-x-2">
+              {["#6B5CE7","#4ECDC4","#FFD93D","#FF6B6B"].map((c, i) => (
+                <div key={i} className="w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-bold"
+                  style={{ background: c, borderColor: "hsl(var(--bg-void))", color: "#fff" }}>
+                  {["R","A","K","S"][i]}
+                </div>
+              ))}
+            </div>
+            <p className="text-sm" style={{ color: "hsl(var(--text-muted))" }}>
+              Trusted by <span style={{ color: "hsl(var(--text-primary))" }}>50+ teams</span> in early access
+            </p>
           </div>
         </div>
 
-        {/* Right — Device mockup */}
-        <div className="flex-1 lg:max-w-[45%] relative device-float">
-          {/* Morphing blob */}
-          <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] h-[360px] pointer-events-none" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
-            <path fill="rgba(123,47,190,0.12)" style={{ animation: "morph-blob 8s ease-in-out infinite" }}>
-              <animate
-                attributeName="d"
-                dur="8s"
-                repeatCount="indefinite"
-                values="M260,150 C310,80 420,120 400,200 C380,280 310,320 250,280 C190,240 210,220 260,150Z;
-                        M270,130 C340,70 430,140 390,220 C350,300 280,340 230,290 C180,240 200,190 270,130Z;
-                        M250,160 C300,90 410,130 410,210 C410,290 320,310 260,270 C200,230 200,230 250,160Z;
-                        M260,150 C310,80 420,120 400,200 C380,280 310,320 250,280 C190,240 210,220 260,150Z"
-              />
-            </path>
-          </svg>
+        {/* RIGHT — Dashboard mockup */}
+        <div className="flex-1 lg:max-w-[46%] relative device-float">
+          {/* Glow behind mockup */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div style={{ width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle, hsla(246,72%,48%,0.22), transparent 70%)", filter: "blur(40px)" }} />
+          </div>
 
-          {/* Glow orb */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] rounded-full" style={{ background: "radial-gradient(circle, rgba(123,47,190,0.28), transparent)", filter: "blur(90px)" }} />
+          {/* Browser chrome mockup */}
+          <div
+            className="relative w-full rounded-2xl overflow-hidden"
+            style={{ border: "1px solid rgba(139,160,255,0.15)", boxShadow: "0 40px 120px rgba(0,0,0,0.6), 0 0 0 1px rgba(139,160,255,0.06)" }}
+          >
+            {/* Browser top bar */}
+            <div className="px-4 py-3 flex items-center gap-3" style={{ background: "hsl(224,24%,10%)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+              <div className="flex gap-1.5">
+                {["#ff5f57","#febc2e","#28c840"].map(c => <div key={c} className="w-3 h-3 rounded-full" style={{ background: c }} />)}
+              </div>
+              <div className="flex-1 mx-4 rounded-md flex items-center px-3 py-1" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <span className="mono text-xs" style={{ color: "hsl(var(--text-ghost))" }}>omnix.app/dashboard</span>
+              </div>
+            </div>
 
-          {/* Laptop SVG */}
-          <svg viewBox="0 0 520 340" className="w-full relative z-10" xmlns="http://www.w3.org/2000/svg">
-            <rect x="40" y="10" width="440" height="280" rx="16" fill="#1a1a2e" />
-            <rect x="52" y="22" width="416" height="256" rx="8" fill="#09070F" />
-            {/* Top bar with dots */}
-            <rect x="52" y="22" width="416" height="28" rx="8" fill="#5116B5" opacity="0.3" />
-            <circle cx="70" cy="36" r="5" fill="#E11D7A" opacity="0.7" />
-            <circle cx="86" cy="36" r="5" fill="#F59E0B" opacity="0.7" />
-            <circle cx="102" cy="36" r="5" fill="#10B981" opacity="0.7" />
+            {/* App layout */}
+            <div className="flex" style={{ background: "hsl(224,22%,9%)", minHeight: 360 }}>
+              {/* Sidebar */}
+              <div className="w-14 flex flex-col items-center py-4 gap-4" style={{ background: "hsl(224,24%,7%)", borderRight: "1px solid rgba(255,255,255,0.04)" }}>
+                {["M","T","K","F","C"].map((icon, i) => (
+                  <div key={i}
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold"
+                    style={{
+                      background: i === 0 ? "hsl(246,72%,48%)" : "rgba(255,255,255,0.04)",
+                      color: i === 0 ? "#fff" : "hsl(var(--text-ghost))",
+                      fontFamily: "'DM Mono', monospace"
+                    }}>
+                    {icon}
+                  </div>
+                ))}
+              </div>
 
-            {/* Sidebar */}
-            <rect x="52" y="50" width="80" height="228" fill="#0E0919" />
-            {[60, 80, 100, 120, 140].map((y, i) => (
-              <g key={i}>
-                <rect x="62" y={y} width="16" height="12" rx="3" fill={i === 0 ? "#6B22D4" : "#2D0B6B"} opacity={i === 0 ? 1 : 0.5} />
-                <rect x="82" y={y + 2} width="38" height="8" rx="2" fill="#4A3F6B" opacity="0.3" />
-              </g>
-            ))}
+              {/* Content area */}
+              <div className="flex-1 p-5 space-y-4">
+                {/* Header row */}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="font-heading text-sm font-600" style={{ color: "hsl(var(--text-primary))" }}>Sprint Board</div>
+                    <div className="mono text-[10px]" style={{ color: "hsl(var(--text-ghost))" }}>October 2025</div>
+                  </div>
+                  <div className="flex gap-2">
+                    {["To Do","In Progress","Done"].map((s, i) => (
+                      <div key={i} className="px-2 py-1 rounded text-[10px] mono"
+                        style={{ background: ["rgba(139,160,255,0.1)","rgba(251,191,36,0.1)","rgba(52,211,153,0.1)"][i], color: ["hsl(246,90%,68%)","hsl(38,95%,60%)","hsl(160,60%,55%)"][i], border: `1px solid ${["rgba(139,160,255,0.2)","rgba(251,191,36,0.2)","rgba(52,211,153,0.2)"][i]}` }}>
+                        {s}
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-            {/* Main area */}
-            <text x="145" y="68" fill="#F8F4FF" fontSize="10" fontFamily="Space Grotesk">My Tasks — October 2025</text>
+                {/* Task cards */}
+                {[
+                  { title: "Design System Overhaul", user: "R", tag: "In Progress", tagC: "hsl(38,95%,60%)", due: "Oct 14", priority: "hsl(var(--electric-400))" },
+                  { title: "API v2 Integration", user: "A", tag: "Done", tagC: "hsl(160,60%,55%)", due: "Oct 12", priority: "hsl(160,60%,55%)" },
+                  { title: "Q4 Investor Deck", user: "K", tag: "To Do", tagC: "hsl(246,90%,68%)", due: "Oct 18", priority: "hsl(38,95%,60%)" },
+                ].map((t, i) => (
+                  <div key={i} className="rounded-lg p-3 flex items-center gap-3"
+                    style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)" }}>
+                    <div className="w-1 h-8 rounded-full flex-shrink-0" style={{ background: t.priority }} />
+                    <div className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold"
+                      style={{ background: ["hsl(246,72%,48%)","hsl(160,60%,39%)","hsl(38,80%,50%)"][i], color: "#fff" }}>
+                      {t.user}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-xs font-500 truncate" style={{ color: "hsl(var(--text-primary))", fontFamily: "'DM Sans',sans-serif" }}>{t.title}</div>
+                      <div className="mono text-[10px]" style={{ color: "hsl(var(--text-ghost))" }}>Due {t.due}</div>
+                    </div>
+                    <div className="px-2 py-0.5 rounded text-[10px] mono flex-shrink-0"
+                      style={{ color: t.tagC, background: t.tagC + "18", border: `1px solid ${t.tagC}30` }}>
+                      {t.tag}
+                    </div>
+                  </div>
+                ))}
 
-            {/* Task cards with avatars */}
-            {[
-              { y: 80, title: "Design System Review", color: "#F59E0B", status: "In Progress" },
-              { y: 118, title: "API Integration", color: "#10B981", status: "Done" },
-              { y: 156, title: "Client Proposal", color: "#F59E0B", status: "In Progress" },
-            ].map((t, i) => (
-              <g key={i}>
-                <rect x="138" y={t.y} width="240" height="30" rx="6" fill="#160D2A" />
-                <rect x="142" y={t.y + 4} width="3" height="22" rx="1.5" fill={t.color} />
-                <circle cx="154" cy={t.y + 15} r="7" fill={i === 0 ? "#3D1191" : i === 1 ? "#5116B5" : "#2D0B6B"} />
-                <text x="166" y={t.y + 19} fill="#C4B5FD" fontSize="9" fontFamily="Inter">{t.title}</text>
-                <rect x="310" y={t.y + 8} width="55" height="14" rx="7" fill={t.color} opacity="0.2" />
-                <text x="316" y={t.y + 19} fill={t.color} fontSize="7" fontFamily="Inter">{t.status}</text>
-                <text x="362" y={t.y + 19} fill="#7C6FAD" fontSize="6" fontFamily="Inter">Oct {12 + i}</text>
-              </g>
-            ))}
+                {/* KPI mini chart */}
+                <div className="rounded-lg p-3" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)" }}>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="mono text-[10px]" style={{ color: "hsl(var(--text-ghost))" }}>Sprint KPI Score</span>
+                    <span className="font-heading text-sm font-700" style={{ color: "hsl(183,100%,56%)" }}>87%</span>
+                  </div>
+                  <div className="h-1.5 rounded-full" style={{ background: "rgba(255,255,255,0.06)" }}>
+                    <div className="h-1.5 rounded-full" style={{ width: "87%", background: "linear-gradient(90deg, hsl(246,90%,68%), hsl(183,100%,56%))" }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-            {/* KPI mini panel with gridlines */}
-            <rect x="395" y="80" width="65" height="55" rx="6" fill="#160D2A" />
-            <text x="400" y="93" fill="#7C6FAD" fontSize="6" fontFamily="Inter">Sprint KPI</text>
-            {/* Gridlines */}
-            {[100, 110, 120].map(y => <line key={y} x1="400" y1={y} x2="455" y2={y} stroke="rgba(6,182,212,0.08)" strokeWidth="0.5" />)}
-            {[0, 1, 2, 3, 4].map((i) => (
-              <rect key={i} x={402 + i * 11} y={127 - (i + 1) * 5} width="7" height={(i + 1) * 5} rx="1" fill="#06B6D4" opacity={0.4 + i * 0.12} />
-            ))}
+          {/* Floating notification */}
+          <div
+            className="absolute -bottom-4 -left-4 flex items-center gap-3 rounded-xl px-4 py-3"
+            style={{ background: "hsl(224,22%,11%)", border: "1px solid rgba(52,211,153,0.25)", boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}
+          >
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(52,211,153,0.12)" }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#34d399" strokeWidth="2.5" strokeLinecap="round"/></svg>
+            </div>
+            <div>
+              <div className="text-xs font-500" style={{ color: "hsl(var(--text-primary))", fontFamily: "'DM Sans',sans-serif" }}>Task completed</div>
+              <div className="mono text-[10px]" style={{ color: "hsl(var(--text-ghost))" }}>Riya · 2 min ago</div>
+            </div>
+          </div>
 
-            {/* Hinge */}
-            <rect x="20" y="290" width="480" height="14" rx="4" fill="#1a1a2e" />
-            <rect x="200" y="292" width="120" height="8" rx="4" fill="#0E0919" />
-          </svg>
-
-          {/* Floating iPhone — slightly rotated */}
-          <svg viewBox="0 0 120 200" className="absolute -bottom-4 -left-4 w-[100px] md:w-[120px] z-20" style={{ transform: "rotate(8deg)" }} xmlns="http://www.w3.org/2000/svg">
-            <rect x="0" y="0" width="120" height="200" rx="28" fill="#1a1a2e" />
-            <rect x="6" y="6" width="108" height="188" rx="22" fill="#09070F" />
-            {/* Status bar */}
-            <rect x="6" y="6" width="108" height="20" rx="10" fill="#160D2A" />
-            <text x="40" y="18" fill="#7C6FAD" fontSize="6" fontFamily="Inter">9:41</text>
-            <text x="15" y="40" fill="#A855F7" fontSize="8" fontFamily="Space Grotesk" fontWeight="600">OmniX</text>
-            {/* Task rows */}
-            {[50, 68, 86, 104, 122, 140].map((y, i) => (
-              <g key={i}>
-                <rect x="14" y={y} width="92" height="14" rx="4" fill="#160D2A" />
-                <rect x="14" y={y} width="3" height="14" rx="1" fill={i < 2 ? "#9333EA" : "#5116B5"} />
-                <rect x="20" y={y + 3} width="8" height="8" rx="2" fill={i < 2 ? "#10B981" : "transparent"} stroke={i < 2 ? "none" : "#7C6FAD"} strokeWidth="0.5" />
-                <rect x="32" y={y + 4} width={40 + (i % 3) * 8} height="5" rx="1.5" fill="#4A3F6B" opacity="0.4" />
-                <circle cx="96" cy={y + 7} r="2" fill={i === 0 ? "#10B981" : i === 1 ? "#F59E0B" : "#5116B5"} opacity="0.6" />
-              </g>
-            ))}
-            {/* Home indicator */}
-            <rect x="40" y="186" width="40" height="4" rx="2" fill="#4A3F6B" opacity="0.4" />
-          </svg>
+          {/* Floating KPI */}
+          <div
+            className="absolute -top-4 -right-4 rounded-xl p-4"
+            style={{ background: "hsl(224,22%,11%)", border: "1px solid rgba(139,160,255,0.2)", boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}
+          >
+            <div className="mono text-[10px] mb-1" style={{ color: "hsl(var(--text-ghost))" }}>Team Velocity</div>
+            <div className="font-heading font-700 text-2xl" style={{ color: "hsl(246,90%,68%)" }}>↑ 34%</div>
+            <div className="flex gap-1 mt-2">
+              {[40,60,48,72,56,80,87].map((h, i) => (
+                <div key={i} className="w-3 rounded-sm" style={{ height: h * 0.4, background: i === 6 ? "hsl(246,90%,68%)" : "rgba(139,160,255,0.2)" }} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Marquee strip */}
-      <div className="marquee-wrap absolute bottom-0 left-0 right-0 overflow-hidden py-4" style={{ borderTop: "1px solid rgba(139,92,246,0.08)", background: "hsl(260 40% 4%)" }}>
+      <div className="marquee-wrap absolute bottom-0 left-0 right-0 overflow-hidden py-3"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.04)", background: "hsl(224,22%,7%)" }}>
         <div className="marquee-track flex whitespace-nowrap">
           {Array.from({ length: 2 }).map((_, j) => (
             <span key={j} className="flex items-center">
-              {["Project Management", "KPI Tracking", "Team Collaboration", "File Management", "Smart Calendar", "Role-Based Access", "Mobile + Web"].map((t, i) => (
-                <span key={i} className="flex items-center text-sm font-body mx-4" style={{ color: "hsl(260 25% 33%)" }}>
-                  {t} <span className="ml-4" style={{ color: "hsl(265 75% 40%)" }}>•</span>
+              {["Project Management","KPI Tracking","Team Collaboration","File Management","Smart Calendar","Role-Based Access","Mobile & Web","Real-Time Sync"].map((t, i) => (
+                <span key={i} className="flex items-center mono text-xs mx-6" style={{ color: "hsl(var(--text-ghost))", letterSpacing: "0.06em" }}>
+                  {t}
+                  <span className="ml-6" style={{ color: "hsl(var(--electric-800))" }}>◆</span>
                 </span>
               ))}
             </span>
