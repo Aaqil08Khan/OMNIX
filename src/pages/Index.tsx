@@ -8,7 +8,6 @@ import BentoSection from "@/components/BentoSection";
 import TabbedFeatures from "@/components/TabbedFeatures";
 import WhyOmniXSection from "@/components/WhyOmniXSection";
 import UseCasesSection from "@/components/UseCasesSection";
-import TechStackSection from "@/components/TechStackSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
@@ -131,7 +130,6 @@ export default function Index() {
       <WaveDivider />
       <UseCasesSection />
       <WaveDivider />
-      <TechStackSection />
       <WaveDivider />
       <TestimonialsSection />
       <WaveDivider />
