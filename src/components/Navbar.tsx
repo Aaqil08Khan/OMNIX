@@ -2,18 +2,18 @@ import { useState, useEffect } from "react";
 
 const Logo = () => (
   <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
-    <rect x="2" y="2" width="12" height="12" rx="3" fill="hsl(248,90%,66%)"/>
-    <rect x="18" y="2" width="12" height="12" rx="3" fill="rgba(110,130,255,0.28)"/>
-    <rect x="2" y="18" width="12" height="12" rx="3" fill="rgba(110,130,255,0.18)"/>
-    <rect x="18" y="18" width="12" height="12" rx="3" fill="hsl(186,100%,54%)" opacity="0.85"/>
+    <rect x="2" y="2" width="12" height="12" rx="3" fill="hsl(248,90%,66%)" />
+    <rect x="18" y="2" width="12" height="12" rx="3" fill="rgba(110,130,255,0.28)" />
+    <rect x="2" y="18" width="12" height="12" rx="3" fill="rgba(110,130,255,0.18)" />
+    <rect x="18" y="18" width="12" height="12" rx="3" fill="hsl(186,100%,54%)" opacity="0.85" />
   </svg>
 );
 
 const navLinks = [
-  { label: "Features", id: "features" },
+  { label: "Features", id: "features" },      // BentoSection
+  { label: "Migration", id: "migration" },      // MigrationEngine
   { label: "Why OmniX", id: "why-omnix" },
   { label: "Use Cases", id: "use-cases" },
-  { label: "Tech Stack", id: "tech-stack" },
   { label: "Contact", id: "contact" },
 ];
 
@@ -89,14 +89,20 @@ export default function Navbar() {
           {navLinks.map((l) => (
             <button
               key={l.id}
-              className="nav-item"
+              className="nav-item relative"
               onClick={() => scrollTo(l.id)}
-              style={{
-                color: activeSection === l.id ? "hsl(var(--t-primary))" : undefined,
-                fontWeight: activeSection === l.id ? 500 : undefined,
-              }}
             >
               {l.label}
+
+              {activeSection === l.id && (
+                <span
+                  className="absolute left-0 -bottom-1 w-full h-[2px]"
+                  style={{
+                    background: "hsl(var(--p400))",
+                    borderRadius: "2px",
+                  }}
+                />
+              )}
             </button>
           ))}
         </div>
@@ -112,7 +118,7 @@ export default function Navbar() {
           >
             Get Early Access
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
+              <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </button>
         </div>
@@ -125,9 +131,9 @@ export default function Navbar() {
           aria-label="Open menu"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
           </svg>
         </button>
       </nav>
@@ -152,8 +158,8 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             </button>
           </div>
@@ -184,7 +190,7 @@ export default function Navbar() {
             <button className="btn-primary w-full justify-center text-base py-4" onClick={() => scrollTo("contact")}>
               Get Early Access
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
+                <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </button>
           </div>

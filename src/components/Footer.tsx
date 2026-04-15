@@ -9,9 +9,9 @@ const Logo = () => (
 
 const navLinks = [
   { label: "Features", id: "features" },
+  { label: "Migration", id: "migration" },
   { label: "Why OmniX", id: "why-omnix" },
   { label: "Use Cases", id: "use-cases" },
-  { label: "Tech Stack", id: "tech-stack" },
   { label: "Contact", id: "contact" },
 ];
 
