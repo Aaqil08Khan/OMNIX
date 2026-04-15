@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const tiers = [
   {
@@ -95,8 +95,37 @@ const tiers = [
 ];
 
 export default function FiveTiersSection() {
+  const nextTier = () => {
+    setActive((prev) => (prev + 1) % tiers.length);
+  };
+
+  const prevTier = () => {
+    setActive((prev) => (prev - 1 + tiers.length) % tiers.length);
+  };
+
   const [active, setActive] = useState(0);
   const tier = tiers[active];
+
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.changedTouches[0].screenX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    touchEndX.current = e.changedTouches[0].screenX;
+
+    const diff = touchStartX.current - touchEndX.current;
+
+    if (diff > 50) {
+      // swipe left → next
+      nextTier();
+    } else if (diff < -50) {
+      // swipe right → previous
+      prevTier();
+    }
+  };
 
   return (
     <section
@@ -153,9 +182,8 @@ export default function FiveTiersSection() {
               style={{
                 background:
                   i === active ? t.accent + "18" : "rgba(255,255,255,0.03)",
-                border: `1px solid ${
-                  i === active ? t.accent + "55" : "rgba(255,255,255,0.06)"
-                }`,
+                border: `1px solid ${i === active ? t.accent + "55" : "rgba(255,255,255,0.06)"
+                  }`,
                 color:
                   i === active ? t.accent : "hsl(var(--t-ghost))",
                 cursor: "pointer",
@@ -191,7 +219,7 @@ export default function FiveTiersSection() {
 
         {/* ── Main content panel ── */}
         <div
-          className="rounded-3xl overflow-hidden reveal"
+          className="relative rounded-3xl overflow-hidden reveal"
           style={{
             border: `1px solid ${tier.accent}22`,
             background: "hsl(var(--surface))",
@@ -199,7 +227,41 @@ export default function FiveTiersSection() {
             transition: "border-color 0.5s, box-shadow 0.5s",
           }}
         >
-          <div className="flex flex-col lg:flex-row min-h-[520px]">
+
+          {/* LEFT BUTTON */}
+          <button
+            onClick={prevTier}
+            className=" hidden sm:flex absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center backdrop-blur-md transition-all hover:bg-white/10 hover:scale-110 active:scale-95"
+            style={{
+              background: "rgba(0,0,0,0.5)",
+              border: "1px solid rgba(255,255,255,0.15)",
+              color: "white",
+              fontSize: "22px",
+              fontWeight: "bold",
+            }}
+          >
+            ‹
+          </button>
+
+          {/* RIGHT BUTTON */}
+          <button
+            onClick={nextTier}
+            className=" hidden sm:flex absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center backdrop-blur-md transition-all hover:bg-white/10 hover:scale-110 active:scale-95"
+            style={{
+              background: "rgba(0,0,0,0.5)",
+              border: "1px solid rgba(255,255,255,0.15)",
+              color: "white",
+              fontSize: "22px",
+              fontWeight: "bold",
+            }}
+          >
+            ›
+          </button>
+          <div
+            className="flex flex-col lg:flex-row min-h-[520px] touch-pan-y"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             {/* LEFT — Image + intro */}
             <div className="lg:w-[42%] relative overflow-hidden">
               <img
