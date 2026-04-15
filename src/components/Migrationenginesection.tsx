@@ -2,44 +2,44 @@ import { useState } from "react";
 
 const importSources = [
     {
-        name: "Asana / Monday / ClickUp / Jira / Trello",
+        name: "Project & Task Platforms",
         what: "Tasks, projects, assignees, statuses, comments, attachments",
-        how: "REST APIs",
+        how: "Typically requires manual mapping and fragmented exports",
         icon: "◈",
         color: "hsl(var(--p400))",
     },
     {
-        name: "Google Workspace / Microsoft 365",
-        what: "Docs, Sheets, Calendar events, Drive files",
-        how: "Google / Microsoft APIs",
+        name: "Productivity Suites",
+        what: "Documents, spreadsheets, calendars, shared files",
+        how: "Often migrated file-by-file with limited structure retention",
         icon: "◇",
         color: "hsl(var(--cyan))",
     },
     {
-        name: "Slack / Teams",
-        what: "Channels → project threads, pinned messages → docs",
-        how: "Slack / Teams APIs",
+        name: "Team Communication Tools",
+        what: "Channels, conversations, pinned knowledge",
+        how: "Conversations usually exported without context or linkage",
         icon: "⬡",
         color: "hsl(var(--ember))",
     },
     {
-        name: "BambooHR / Gusto",
-        what: "Employee records, org chart, leave balances",
-        how: "HR platform APIs",
+        name: "HR Systems",
+        what: "Employee records, org structures, leave data",
+        how: "Requires separate HR migration and manual reconciliation",
         icon: "◉",
         color: "hsl(var(--jade))",
     },
     {
-        name: "QuickBooks / Xero",
+        name: "Financial Systems",
         what: "Invoices, budgets, financial context",
-        how: "Accounting APIs",
+        how: "Data imported in isolation without operational linkage",
         icon: "▣",
         color: "hsl(var(--p300))",
     },
     {
-        name: "CSV / Excel",
-        what: "Anything — tasks, employee lists, project plans",
-        how: "Universal fallback",
+        name: "Spreadsheets / CSV",
+        what: "Tasks, employee lists, project plans",
+        how: "Manual cleanup and restructuring required before import",
         icon: "▢",
         color: "hsl(var(--t-muted))",
     },
@@ -172,6 +172,7 @@ export default function MigrationEngineSection() {
                 {/* ── Two-column: Sources + AI Panel ── */}
                 <div className="flex flex-col lg:flex-row gap-6 mb-10">
                     {/* LEFT — Import Sources Table */}
+                    
                     <div
                         className="flex-1 rounded-2xl overflow-hidden reveal"
                         style={{
@@ -180,15 +181,16 @@ export default function MigrationEngineSection() {
                         }}
                     >
                         {/* Table header */}
+                        
                         <div
                             className="grid px-5 py-3"
                             style={{
-                                gridTemplateColumns: "1.6fr 2.2fr 1fr",
+                                gridTemplateColumns: "1.6fr 2.2fr 1.6fr",
                                 background: "hsl(var(--surface-2))",
                                 borderBottom: "1px solid rgba(255,255,255,0.05)",
                             }}
                         >
-                            {["SOURCE", "WHAT TO IMPORT", "HOW"].map((h) => (
+                            {["SOURCE", "DATA INCLUDED", "TYPICAL APPROACH"].map((h) => (
                                 <span
                                     key={h}
                                     className="mono text-[10px]"
@@ -208,7 +210,7 @@ export default function MigrationEngineSection() {
                                 key={i}
                                 className="w-full text-left grid px-5 py-3.5 transition-all duration-200"
                                 style={{
-                                    gridTemplateColumns: "1.6fr 2.2fr 1fr",
+                                    gridTemplateColumns: "1.6fr 2.2fr 1.6fr",
                                     gap: "12px",
                                     alignItems: "start",
                                     borderBottom: "1px solid rgba(255,255,255,0.04)",
@@ -258,11 +260,10 @@ export default function MigrationEngineSection() {
                                 {/* How */}
                                 <div>
                                     <span
-                                        className="mono text-[10px] px-2 py-0.5 rounded-md"
+                                        className="text-[12px] leading-snug"
                                         style={{
-                                            color: src.color,
-                                            background: src.color + "15",
-                                            border: `1px solid ${src.color}25`,
+                                            color: "hsl(var(--t-muted))",
+                                            fontFamily: "'Outfit',sans-serif",
                                         }}
                                     >
                                         {src.how}

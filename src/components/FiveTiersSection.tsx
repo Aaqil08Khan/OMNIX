@@ -1,4 +1,9 @@
 import { useState, useRef } from "react";
+import automation from "@/assets/images/automation.webp";
+import operationCore from "@/assets/images/operationscore.avif";
+import peopleHr from "@/assets/images/people&hr.avif";
+import meetingIntelligence from "@/assets/images/meetingIntelligence.avif";
+import businessInteligence from "@/assets/images/businessintelligence.avif";
 
 const tiers = [
   {
@@ -10,7 +15,7 @@ const tiers = [
     accent: "hsl(248,90%,66%)",
     accentDim: "rgba(110,80,255,0.12)",
     icon: "◈",
-    image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&q=80&auto=format",
+    image: operationCore,
     modules: [
       { name: "Task Management", ai: "Create, assign, track, approve, summarize, predict delays" },
       { name: "Project Management", ai: '"How is Project X? Who\'s blocking? Will we hit the deadline?"' },
@@ -28,7 +33,7 @@ const tiers = [
     accent: "hsl(28,95%,58%)",
     accentDim: "rgba(251,146,60,0.1)",
     icon: "◇",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80&auto=format",
+    image: peopleHr,
     modules: [
       { name: "Attendance & Leave", ai: '"How many leaves does Ahmed have? Approve Fatima\'s request."' },
       { name: "Onboarding", ai: '"What\'s Noor\'s onboarding status? Send her the IT setup guide."' },
@@ -45,7 +50,7 @@ const tiers = [
     accent: "hsl(186,100%,54%)",
     accentDim: "rgba(80,220,220,0.1)",
     icon: "⬡",
-    image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&q=80&auto=format",
+    image: meetingIntelligence,
     highlight: true,
     modules: [
       { name: "AI in Meetings", ai: "OmniX joins Zoom / Teams / Google Meet with full company context loaded" },
@@ -65,7 +70,7 @@ const tiers = [
     accent: "hsl(158,64%,52%)",
     accentDim: "rgba(52,211,153,0.1)",
     icon: "◉",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format",
+    image: businessInteligence,
     modules: [
       { name: "Cross-Module Insights", ai: '"John is underperforming: he\'s on 3 overlapping projects with 40% team leave."' },
       { name: "Predictive Alerts", ai: '"Project Alpha will miss its deadline by 8 days. Recommend: add 1 resource."' },
@@ -83,7 +88,7 @@ const tiers = [
     accent: "hsl(248,100%,76%)",
     accentDim: "rgba(140,120,255,0.1)",
     icon: "▣",
-    image: "https://images.unsplash.com/photo-1600267185393-1b14be2a9a5a?w=800&q=80&auto=format",
+    image: automation,
     modules: [
       { name: "Internal Chat", ai: "Slack-like messaging, fully AI-searchable and context-aware" },
       { name: "Approval Workflows", ai: "Custom chains: leave → manager → HR → payroll, with AI routing" },

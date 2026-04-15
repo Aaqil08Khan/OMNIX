@@ -1,3 +1,7 @@
+import lackofClarity from "@/assets/images/lackofclarity.avif";
+import missedDeadline from "@/assets/images/misseddeadlnes.avif";
+import scatteredInfo from "@/assets/images/scatteredinformation.avif";
+import wastedTime from "@/assets/images/wastedtime.avif";
 const problems = [
   {
     num: "01",
@@ -5,7 +9,7 @@ const problems = [
     desc: "Your data lives across five different apps. Nothing connects. Context is lost daily and team knowledge evaporates into email threads.",
     icon: "◈",
     color: "hsl(var(--ember))",
-    image: "https://images.unsplash.com/photo-1555421689-491a97ff2040?w=400&q=80&auto=format",
+    image: scatteredInfo,
   },
   {
     num: "02",
@@ -13,7 +17,7 @@ const problems = [
     desc: "No one can see the big picture. Reports are manual. Goals feel completely disconnected from daily work and deadlines.",
     icon: "◇",
     color: "hsl(var(--p400))",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80&auto=format",
+    image: lackofClarity,
   },
   {
     num: "03",
@@ -21,7 +25,7 @@ const problems = [
     desc: "Tasks slip through the cracks. Reminders come too late or not at all. Projects run over time and over budget.",
     icon: "⬡",
     color: "hsl(0,75%,60%)",
-    image: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=400&q=80&auto=format",
+    image: missedDeadline,
   },
   {
     num: "04",
@@ -29,7 +33,7 @@ const problems = [
     desc: "Hours spent switching between tools, syncing data, and updating spreadsheets manually instead of doing real work.",
     icon: "◉",
     color: "hsl(var(--cyan))",
-    image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&q=80&auto=format",
+    image: wastedTime,
   },
 ];
 
