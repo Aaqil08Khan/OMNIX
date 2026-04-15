@@ -5,6 +5,8 @@ import WaveDivider from "@/components/WaveDivider";
 import ProblemSection from "@/components/ProblemSection";
 import SolutionSection from "@/components/SolutionSection";
 import BentoSection from "@/components/BentoSection";
+import FiveTiersSection from "@/components/FiveTiersSection";
+import MigrationEngine from "@/components/Migrationenginesection";
 import TabbedFeatures from "@/components/TabbedFeatures";
 import WhyOmniXSection from "@/components/WhyOmniXSection";
 import UseCasesSection from "@/components/UseCasesSection";
@@ -124,12 +126,15 @@ export default function Index() {
       <WaveDivider />
       <BentoSection />
       <WaveDivider />
+      <FiveTiersSection />
+      <WaveDivider />
+      <MigrationEngine />
+      <WaveDivider />
       <TabbedFeatures />
       <WaveDivider />
       <WhyOmniXSection />
       <WaveDivider />
       <UseCasesSection />
-      <WaveDivider />
       <WaveDivider />
       <TestimonialsSection />
       <WaveDivider />
