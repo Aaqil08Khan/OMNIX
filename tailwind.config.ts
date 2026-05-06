@@ -61,12 +61,12 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        "omnix-void": "hsl(var(--bg-void))",
-        "omnix-deep": "hsl(var(--bg-deep))",
-        "omnix-mid": "hsl(var(--bg-mid))",
-        "omnix-surface": "hsl(var(--bg-surface))",
-        "omnix-surface-2": "hsl(var(--bg-surface-2))",
-        "omnix-purple": {
+        "vaize-void": "hsl(var(--bg-void))",
+        "vaize-deep": "hsl(var(--bg-deep))",
+        "vaize-mid": "hsl(var(--bg-mid))",
+        "vaize-surface": "hsl(var(--bg-surface))",
+        "vaize-surface-2": "hsl(var(--bg-surface-2))",
+        "vaize-purple": {
           900: "hsl(var(--purple-900))",
           800: "hsl(var(--purple-800))",
           700: "hsl(var(--purple-700))",
@@ -78,7 +78,7 @@ export default {
           100: "hsl(var(--purple-100))",
           50: "hsl(var(--purple-50))",
         },
-        "omnix-text": {
+        "vaize-text": {
           primary: "hsl(var(--text-primary))",
           secondary: "hsl(var(--text-secondary))",
           muted: "hsl(var(--text-muted))",

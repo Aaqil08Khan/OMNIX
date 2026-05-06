@@ -16,7 +16,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    quote: "As OmniX's designer, it consolidates my entire creative workflow — timelines, assets, and feedback all in one place. It cuts the clutter and just lets me design.",
+    quote: "As Vaize's designer, it consolidates my entire creative workflow — timelines, assets, and feedback all in one place. It cuts the clutter and just lets me design.",
     name: "UI/UX Designer",
     org: "MavenAiTech",
     initial: "D",

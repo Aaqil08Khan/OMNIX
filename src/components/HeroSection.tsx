@@ -19,7 +19,7 @@ export default function HeroSection() {
   const statsRef = useRef<HTMLDivElement>(null);
 
   const subs = [
-    "OmniX unifies tasks, KPIs, files & team into one powerful platform.",
+    "Vaize unifies tasks, KPIs, files & team into one powerful platform.",
     "Built for teams that move fast and need everything in sync.",
     "From your first task to your biggest milestone — all in one place.",
   ];
@@ -216,7 +216,7 @@ export default function HeroSection() {
               </div>
               <div className="flex-1 mx-3 rounded-md flex items-center px-3 py-1.5" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
                 <div className="w-3 h-3 mr-2 rounded-full" style={{ background: "rgba(110,130,255,0.5)" }}/>
-                <span className="mono text-[11px]" style={{ color: "hsl(var(--t-ghost))" }}>omnix.app/dashboard</span>
+                <span className="mono text-[11px]" style={{ color: "hsl(var(--t-ghost))" }}>vaize.app/dashboard</span>
               </div>
               <div className="flex gap-1.5">
                 {[0,1,2].map(i => (

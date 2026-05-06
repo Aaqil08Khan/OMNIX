@@ -172,7 +172,7 @@ const tabs = [
     num: "07",
     label: "Meeting Scheduler",
     title: "Meeting Scheduler",
-    para: "Plan and document meetings within OmniX, linked to specific projects and tasks. Keep everyone aligned without leaving the platform.",
+    para: "Plan and document meetings within Vaize, linked to specific projects and tasks. Keep everyone aligned without leaving the platform.",
     bullets: ["Agenda builder & notes", "Project-linked meeting records", "Calendar integration"],
     accent: "hsl(var(--p400))",
     image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=700&q=80&auto=format",

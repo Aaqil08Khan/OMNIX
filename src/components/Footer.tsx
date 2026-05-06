@@ -10,7 +10,7 @@ const Logo = () => (
 const navLinks = [
   { label: "Features", id: "features" },
   { label: "Migration", id: "migration" },
-  { label: "Why OmniX", id: "why-omnix" },
+  { label: "Why Vaize", id: "why-vaize" },
   { label: "Use Cases", id: "use-cases" },
   { label: "Contact", id: "contact" },
 ];
@@ -35,7 +35,7 @@ export default function Footer() {
             >
               <Logo/>
               <span className="font-display font-700 text-[17px]" style={{ color: "hsl(var(--t-primary))", letterSpacing: "-0.04em" }}>
-                omni<span className="brand-x">X</span>
+                Vaize
               </span>
             </button>
             <p className="text-[13.5px] mb-1" style={{ color: "hsl(var(--t-ghost))" }}>An Initiative for the Future</p>

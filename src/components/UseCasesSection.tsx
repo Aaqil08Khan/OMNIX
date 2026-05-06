@@ -55,7 +55,7 @@ export default function UseCasesSection() {
             <span className="grad-primary">Every Kind</span> of Team
           </h2>
           <p className="text-lg mt-5 max-w-md mx-auto" style={{ color: "hsl(var(--t-muted))" }}>
-            Whether you're a solo founder or a Fortune 500, OmniX scales with you effortlessly.
+            Whether you're a solo founder or a Fortune 500, Vaize scales with you effortlessly.
           </p>
         </div>
 

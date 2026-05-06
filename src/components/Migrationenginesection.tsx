@@ -48,7 +48,7 @@ const importSources = [
 const aiCapabilities = [
     {
         capability: "Smart field mapping",
-        detail: "Reads source schema and auto-maps to OmniX — no manual column matching required",
+        detail: "Reads source schema and auto-maps to Vaize — no manual column matching required",
         icon: "⟶",
         color: "hsl(var(--p400))",
     },
@@ -165,7 +165,7 @@ export default function MigrationEngineSection() {
                     >
                         No company adopts a new platform if it means re-entering years of
                         data. The Migration Engine removes this barrier entirely — connect
-                        your existing tools and OmniX does the rest.
+                        your existing tools and Vaize does the rest.
                     </p>
                 </div>
 

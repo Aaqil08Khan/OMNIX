@@ -127,7 +127,7 @@ export default function BentoSection() {
             <span className="grad-primary">Nothing It Doesn't.</span>
           </h2>
           <p className="text-lg mt-4 max-w-md mx-auto" style={{ color: "hsl(var(--t-muted))" }}>
-            OmniX is laser-focused on workflows that matter most.
+            Vaize is laser-focused on workflows that matter most.
           </p>
         </div>
 
