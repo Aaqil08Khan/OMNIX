@@ -8,7 +8,7 @@ import BentoSection from "@/components/BentoSection";
 import FiveTiersSection from "@/components/FiveTiersSection";
 import MigrationEngine from "@/components/Migrationenginesection";
 import TabbedFeatures from "@/components/TabbedFeatures";
-import WhyOmniXSection from "@/components/WhyOmniXSection";
+import WhyVaizeSection from "@/components/WhyVaizeSection";
 import UseCasesSection from "@/components/UseCasesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CTASection from "@/components/CTASection";
@@ -132,7 +132,7 @@ export default function Index() {
       <WaveDivider />
       <TabbedFeatures />
       <WaveDivider />
-      <WhyOmniXSection />
+      <WhyVaizeSection />
       <WaveDivider />
       <UseCasesSection />
       <WaveDivider />

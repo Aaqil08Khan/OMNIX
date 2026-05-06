@@ -44,7 +44,7 @@ export default function SolutionSection() {
               {/* Status bar */}
               <div className="px-5 py-3 flex items-center justify-between" style={{ background: "hsl(226,28%,7%)" }}>
                 <span className="mono text-[11px]" style={{ color: "hsl(var(--t-ghost))" }}>9:41</span>
-                <span className="font-display text-[13px] font-700" style={{ color: "hsl(var(--p400))" }}>OmniX</span>
+                <span className="font-display text-[13px] font-700" style={{ color: "hsl(var(--p400))" }}>Vaize</span>
                 <div className="flex items-center gap-1">
                   <div className="w-1.5 h-1.5 rounded-full" style={{ background: "hsl(var(--jade))", boxShadow: "0 0 6px hsl(var(--jade))" }}/>
                   <span className="mono text-[9px]" style={{ color: "hsl(var(--t-ghost))" }}>Live</span>
@@ -115,7 +115,7 @@ export default function SolutionSection() {
             <span className="grad-primary">Total Clarity.</span>
           </h2>
           <p className="text-lg leading-relaxed max-w-lg" style={{ color: "hsl(var(--t-secondary))", lineHeight: 1.72 }}>
-            OmniX is a unified web and mobile platform that connects your daily tasks directly to your business goals. Beautiful by design, powerful by architecture.
+            Vaize is a unified web and mobile platform that connects your daily tasks directly to your business goals. Beautiful by design, powerful by architecture.
           </p>
 
           {/* Feature list */}

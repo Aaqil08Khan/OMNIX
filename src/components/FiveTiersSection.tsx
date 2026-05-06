@@ -46,14 +46,14 @@ const tiers = [
     label: "Meeting Intelligence",
     tag: "The Differentiator",
     tagline: "The capability no competitor has built.",
-    desc: "OmniX's meeting AI is an active participant — it knows the projects, the people, the deadlines, and the blockers before the meeting starts. Fireflies transcribes. OmniX understands.",
+    desc: "Vaize's meeting AI is an active participant — it knows the projects, the people, the deadlines, and the blockers before the meeting starts. Fireflies transcribes. Vaize understands.",
     accent: "hsl(186,100%,54%)",
     accentDim: "rgba(80,220,220,0.1)",
     icon: "⬡",
     image: meetingIntelligence,
     highlight: true,
     modules: [
-      { name: "AI in Meetings", ai: "OmniX joins Zoom / Teams / Google Meet with full company context loaded" },
+      { name: "AI in Meetings", ai: "Vaize joins Zoom / Teams / Google Meet with full company context loaded" },
       { name: "Live Answers", ai: 'CEO asks "Where are we on Project Alpha?" — AI answers instantly with live data' },
       { name: "Auto Action Items", ai: '"Talha, fix the API by Friday" → task auto-created, assigned, deadline set' },
       { name: "Meeting Summary", ai: "Structured summary, decisions made, action items sent to all participants" },
@@ -66,7 +66,7 @@ const tiers = [
     label: "Business Intelligence",
     tag: "Predictions",
     tagline: "Compound insight from unified data.",
-    desc: "Impossible to replicate without the full data graph. OmniX sees across every module to surface insights no siloed tool ever could.",
+    desc: "Impossible to replicate without the full data graph. Vaize sees across every module to surface insights no siloed tool ever could.",
     accent: "hsl(158,64%,52%)",
     accentDim: "rgba(52,211,153,0.1)",
     icon: "◉",
@@ -171,7 +171,7 @@ export default function FiveTiersSection() {
             className="text-lg mt-5 max-w-xl mx-auto"
             style={{ color: "hsl(var(--t-muted))", lineHeight: 1.72 }}
           >
-            OmniX is structured as five capability tiers built in sequence. Each
+            Vaize is structured as five capability tiers built in sequence. Each
             tier delivers standalone value while making the AI smarter than the
             tier before it.
           </p>

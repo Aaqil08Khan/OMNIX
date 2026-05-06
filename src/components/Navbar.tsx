@@ -12,7 +12,7 @@ const Logo = () => (
 const navLinks = [
   { label: "Features", id: "features" },      // BentoSection
   { label: "Migration", id: "migration" },      // MigrationEngine
-  { label: "Why OmniX", id: "why-omnix" },
+  { label: "Why Vaize", id: "why-vaize" },
   { label: "Use Cases", id: "use-cases" },
   { label: "Contact", id: "contact" },
 ];
@@ -69,7 +69,7 @@ export default function Navbar() {
             className="font-display font-700 text-[18px]"
             style={{ color: "hsl(var(--t-primary))", letterSpacing: "-0.04em" }}
           >
-            omni<span className="brand-x">X</span>
+            Vaize
           </span>
           <span
             className="hidden sm:inline mono text-[10px] px-2 py-0.5 rounded"
@@ -149,7 +149,7 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               <Logo />
               <span className="font-display font-700 text-[17px]" style={{ color: "hsl(var(--t-primary))" }}>
-                omni<span className="brand-x">X</span>
+                Vaize
               </span>
             </div>
             <button

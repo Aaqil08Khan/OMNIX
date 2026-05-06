@@ -120,7 +120,7 @@ export default function ProblemSection() {
             style={{ background: "hsl(var(--surface))", border: "1px solid rgba(255,255,255,0.06)" }}>
             <div style={{ width: 8, height: 8, borderRadius: "50%", background: "hsl(var(--ember))", boxShadow: "0 0 10px hsl(var(--ember))" }}/>
             <p className="text-sm" style={{ color: "hsl(var(--t-secondary))" }}>
-              The average team uses <span style={{ color: "hsl(var(--t-primary))", fontWeight: 600 }}>6–8 different tools</span> to manage work. OmniX replaces them all.
+              The average team uses <span style={{ color: "hsl(var(--t-primary))", fontWeight: 600 }}>6–8 different tools</span> to manage work. Vaize replaces them all.
             </p>
           </div>
         </div>

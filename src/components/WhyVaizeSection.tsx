@@ -23,9 +23,9 @@ const Check = () => (
   </svg>
 );
 
-export default function WhyOmniXSection() {
+export default function WhyVaizeSection() {
   return (
-    <section id="why-omnix" className="relative py-28 bg-deep overflow-hidden">
+    <section id="why-vaize" className="relative py-28 bg-deep overflow-hidden">
       <div className="grid-bg opacity-35" />
       <div
         className="glow-blob"
@@ -42,7 +42,7 @@ export default function WhyOmniXSection() {
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
         {/* Header */}
         <div className="text-center mb-16 reveal">
-          <span className="section-tag">Why OmniX</span>
+          <span className="section-tag">Why Vaize</span>
           <h2
             className="font-display mt-2"
             style={{
@@ -59,7 +59,7 @@ export default function WhyOmniXSection() {
             className="text-lg mt-5 max-w-lg mx-auto"
             style={{ color: "hsl(var(--t-muted))", lineHeight: 1.72 }}
           >
-            OmniX is designed as a unified operating system for your business — not a collection of disconnected features.
+            Vaize is designed as a unified operating system for your business — not a collection of disconnected features.
           </p>
         </div>
 
@@ -125,7 +125,7 @@ export default function WhyOmniXSection() {
                 letterSpacing: "0.12em",
               }}
             >
-              OMNIX CAPABILITY CHECKLIST
+              VAIZE CAPABILITY CHECKLIST
             </span>
           </div>
 
